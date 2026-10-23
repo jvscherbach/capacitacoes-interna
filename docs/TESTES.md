@@ -50,3 +50,41 @@ Se o PowerShell bloquear `npm` (política de execução), use `npm.cmd` ou:
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
+
+## Resultados finais (Sprint 3, 2026-10-23)
+Execução real; saídas completas em `docs/EXECUCAO.md`.
+
+### Automatizados — `npm test`: 6 arquivos, **30 testes APROVADOS**; `npm run build`: APROVADO
+| ID | Resultado | Teste |
+|---|---|---|
+| T01 | APROVADO | `cursos.test.js` |
+| T02, T03, T04 | APROVADO | `turmas.test.js` |
+| T05 | APROVADO | `participantes.test.js` |
+| T06, T07, T08, T09 | APROVADO | `inscricoes.test.js` |
+| T10, T11 | APROVADO | `cursos.test.js` |
+| T12, T13 | APROVADO | `dashboard.test.js` |
+| T14 | APROVADO | `persistencia.test.js` |
+Extras aprovados: 409 de nome/código duplicado, RN06 (curso/participante), RN07/RN08, JSON inválido, CORS, 404 de rota, exclusão libera vaga, mensagem legível de curso ausente (regressão da S3).
+
+### Roteiro manual de homologação (S3)
+| # | Item | Resultado |
+|---|---|---|
+| 1 | CRUD de curso, turma e participante | APROVADO |
+| 2 | Validação de entrada | FALHOU → corrigido → APROVADO |
+| 3 | Listas vazias com ação sugerida | APROVADO |
+| 4 | Lotar turma, erro de vaga, inscrição duplicada | APROVADO |
+| 5 | Concluir e repetir sem efeito colateral | APROVADO |
+| 6 | Indicadores após cada mudança | APROVADO |
+| 7 | Exclusões bloqueadas com mensagem da API | APROVADO |
+| 8 | Persistência após reiniciar o backend | APROVADO |
+| 9 | Integração sem erros no console/logs | APROVADO |
+| 10 | Layout em ~375 px e desktop | APROVADO (contraste AA: NÃO TESTADO) |
+| 11 | Ausência de segredos | APROVADO |
+
+### Checklist de homologação (gate)
+- [x] Sistema inicia localmente; API e interface respondem
+- [x] CRUD funciona com banco persistente
+- [x] Três indicadores mudam conforme os registros
+- [x] Testes executados com resultado registrado
+- [x] README e `docs/EXECUCAO.md` atualizados
+- [x] Sem credenciais no repositório

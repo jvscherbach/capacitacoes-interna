@@ -36,14 +36,14 @@ export const cursoSchema = z.object({
 
 export const turmaSchema = z
   .object({
-    curso_id: inteiro('curso_id', 1),
+    curso_id: inteiro('Curso', 1),
     codigo: texto('Código'),
-    periodo_inicio: dataIso('periodo_inicio'),
-    periodo_fim: dataIso('periodo_fim'),
+    periodo_inicio: dataIso('Início do período'),
+    periodo_fim: dataIso('Fim do período'),
     vagas: inteiro('Vagas', 1),
   })
   .refine((t) => t.periodo_fim >= t.periodo_inicio, {
-    message: 'periodo_fim deve ser maior ou igual a periodo_inicio',
+    message: 'O fim do período deve ser maior ou igual ao início',
     path: ['periodo_fim'],
   });
 

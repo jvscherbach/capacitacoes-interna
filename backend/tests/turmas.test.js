@@ -40,6 +40,16 @@ describe('Turmas', () => {
     expect(igual.status).toBe(201);
   });
 
+  it('curso ausente retorna 422 com mensagem legível e período vazio cita o campo', async () => {
+    const { api } = novoApp();
+    const semCurso = await api.post('/api/turmas').send({ ...turmaValida(1), curso_id: undefined });
+    expect(semCurso.status).toBe(422);
+    expect(semCurso.body.detail).toBe('Curso é obrigatório');
+    const semPeriodo = await api.post('/api/turmas').send({ ...turmaValida(1), periodo_inicio: '' });
+    expect(semPeriodo.status).toBe(422);
+    expect(semPeriodo.body.detail).toMatch(/Início do período/);
+  });
+
   it('datas fora do formato ISO retornam 422', async () => {
     const { api } = novoApp();
     const curso = await criarCurso(api);
