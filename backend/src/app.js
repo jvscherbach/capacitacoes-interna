@@ -24,7 +24,8 @@ export function createApp(db) {
   });
   app.use(express.json());
 
-  app.get('/health', (req, res) => res.json({ status: 'ok' }));
+  // `/api/health` é o caminho alcançável na Vercel (só `/api/*` vai para o backend).
+  app.get(['/health', '/api/health'], (req, res) => res.json({ status: 'ok' }));
   app.use('/api/cursos', rotasCursos(db));
   app.use('/api/turmas', rotasTurmas(db));
   app.use('/api/participantes', rotasParticipantes(db));

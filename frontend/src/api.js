@@ -1,4 +1,5 @@
-const BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api';
+// Em produção (Vercel) a API é servida na mesma origem, em /api; em dev, na porta 8000.
+const BASE = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api');
 
 async function requisicao(metodo, caminho, corpo) {
   let resposta;
