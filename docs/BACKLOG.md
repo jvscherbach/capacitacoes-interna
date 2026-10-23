@@ -18,7 +18,7 @@ Regra: implementar **uma sprint por vez**, na ordem. Não avançar se o gate fal
 **Parada:** ao concluir S0. Não iniciar S1.
 **Prompt:** `docs/prompts/S0.md`
 
-## S1 — Banco + API CRUD + indicadores — `PENDENTE`
+## S1 — Banco + API CRUD + indicadores — `CONCLUÍDA`
 **Objetivo:** backend completo e testado: modelos, regras RN01–RN08, CRUD, inscrição/conclusão e `GET /dashboard`.
 **Dependências:** S0 concluída.
 **Arquivos prováveis:** `backend/src/*` (`app.js`, `db.js`, `schemas.js`, `services/`, `routes/`, `seed.js`, `server.js`), `backend/tests/*`, `docs/EXECUCAO.md`.
