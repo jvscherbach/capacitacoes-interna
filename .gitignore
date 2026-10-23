@@ -1,0 +1,20 @@
+# Node
+node_modules/
+dist/
+npm-debug.log*
+
+# Banco local (SQLite)
+backend/data/*.db
+backend/data/*.db-*
+*.db
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
