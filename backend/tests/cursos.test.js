@@ -86,6 +86,10 @@ describe('Infra', () => {
     expect(saude.body).toEqual({ status: 'ok' });
     expect(saude.headers['access-control-allow-origin']).toBe('http://localhost:5173');
 
+    const viaApi = await api.get('/api/health');
+    expect(viaApi.status).toBe(200);
+    expect(viaApi.body).toEqual({ status: 'ok' });
+
     const outra = await api.get('/health').set('Origin', 'http://outro.test');
     expect(outra.headers['access-control-allow-origin']).toBeUndefined();
 

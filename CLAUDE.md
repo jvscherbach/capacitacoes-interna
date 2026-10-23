@@ -43,7 +43,7 @@ npm run build
 - Nunca declare "feito" sem saída de comando ou funcionalidade demonstrada. Sem saída real, marque **NÃO TESTADO**.
 - Mudança de escopo, stack ou regra de negócio exige novo ADR em `docs/adr/` antes de implementar.
 - Registre o que foi realmente validado em `docs/EXECUCAO.md` ao fim de cada sprint.
-- Sem login, Docker, Kubernetes ou deploy no MVP (evoluções futuras).
+- Sem login, Docker ou Kubernetes no MVP (evoluções futuras). Deploy: apenas a configuração de Vercel registrada na `docs/adr/ADR-004.md` (banco efêmero na Vercel; ver ADR).
 
 ## Segurança e dados
 - Nenhuma credencial real, nenhum dado institucional. Apenas dados fictícios (nomes, e-mails `@exemplo.test`).

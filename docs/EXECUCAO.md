@@ -176,6 +176,15 @@ npm run dev          # http://localhost:5173 (API em http://localhost:8000)
 - `feat(frontend): logo e favicon do projeto`
 - `docs: README final, homologação da S3 e registros de execução e testes`
 
+## Configuração de deploy na Vercel (ADR-004, 2026-10-23)
+- Pedido do usuário; `docs/adr/ADR-004.md` (status Proposta) registra decisões e riscos, pois CLAUDE.md excluía deploy.
+- Alterado: `vercel.json` (novo; serviços `backend` e `frontend`, rewrites `/api/(.*)` → backend e `/(.*)` → frontend, sem bindings), `backend/src/server.js` (exporta o app; só escuta fora da Vercel; banco em `/tmp` na Vercel), `backend/src/app.js` (`GET /api/health`), `frontend/src/api.js` (base `/api` em produção), teste de `/api/health` em `backend/tests/cursos.test.js`, README e CLAUDE.md.
+- Docs da Vercel consultadas (services, routing, config-reference): o caminho original é preservado (`/api/x` chega como `/api/x`); não há prefixo de montagem; entrypoint do Express, escrita em disco e módulos nativos **não** estão documentados nessas páginas.
+- Resultados reais: `npm test` → 6 arquivos, **30 testes aprovados**; `npm run build` → OK (1596 módulos); o bundle de produção contém `"/api"` e não contém `localhost:8000`; com `VERCEL=1` o módulo `server.js` exporta uma função (app Express) e **não** abre a porta; sem `VERCEL`, `/health` e `/api/health` respondem `{"status":"ok"}` localmente.
+- **NÃO TESTADO:** deploy real e `vercel dev` (CLI da Vercel não instalada/logada); instalação/execução do `better-sqlite3` na Vercel; detecção automática do entrypoint `backend/src/server.js`; slug `framework: "vite"`.
+- Risco principal: banco em `/tmp` é efêmero (dados não persistem de forma confiável na Vercel).
+- Mensagem de commit sugerida: `chore(deploy): vercel.json com serviços backend/frontend e ajustes de rota e banco (ADR-004)`
+
 ## Migração de stack (ADR-003, 2026-10-23)
 **Motivo:** o ambiente do usuário não executa o interpretador da stack anterior; nova stack 100% Node.js. Nenhum código de aplicação escrito; nenhum `npm install` executado.
 

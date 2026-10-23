@@ -96,6 +96,11 @@ capacitacoes-internas/
 - O `npm audit` aponta vulnerabilidades em dependências de desenvolvimento (Vitest/Vite); não afetam a execução local.
 - Contraste AA e concorrência real de requisições simultâneas não foram medidos.
 
+## Deploy na Vercel (configuração, ADR-004)
+O `vercel.json` da raiz define dois serviços: `backend` (Express) e `frontend` (Vite), com `/api/*` → backend e o restante → frontend, no mesmo domínio. O frontend chama a API em `/api` (mesma origem); localmente continua em `http://localhost:8000/api`.
+
+**Atenção:** na Vercel o SQLite fica em `/tmp`, que é efêmero e por instância; os dados **não persistem** de forma confiável. Para persistência real é preciso um banco externo (ex.: PostgreSQL), o que exige trocar `backend/src/db.js` e registrar novo ADR. O deploy em si **não foi testado** (sem acesso à conta/CLI da Vercel nesta sessão).
+
 ## Evoluções possíveis
 Login e perfis · Docker · Kubernetes · deploy (por exemplo Vercel para o frontend) · PostgreSQL (trocar a camada `backend/src/db.js` por `pg`) · lista de espera · exportação de relatórios.
 
