@@ -83,7 +83,9 @@ export default function Turmas() {
         </Card>
       )}
 
-      {modal?.tipo === 'form' && <TurmaModal turma={modal.turma} cursos={dados?.cursos ?? []} onClose={fechar} onFeito={feito} />}
+      {modal?.tipo === 'form' && dados && (
+        <TurmaModal turma={modal.turma} cursos={dados.cursos} onClose={fechar} onFeito={feito} />
+      )}
       {modal?.tipo === 'excluir' && (
         <Confirmar titulo="Excluir turma" erro={erroExclusao} onClose={fechar} onConfirmar={excluir}
           texto={`Excluir a turma ${modal.turma.codigo}? Esta ação não pode ser desfeita.`} />

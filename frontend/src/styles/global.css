@@ -30,6 +30,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .topbar { display: none; }
 .scrim { display: none; }
 
+.logo { display: block; width: 100%; max-width: 200px; height: auto; margin: 4px 0 4px 4px; }
+.logo-topo { width: 32px; height: 32px; }
 .usuario {
   display: flex; align-items: center; gap: 10px; padding: 10px 12px;
   border: 1px solid var(--border); border-radius: 16px;

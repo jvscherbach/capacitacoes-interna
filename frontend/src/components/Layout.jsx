@@ -24,6 +24,7 @@ function Sidebar({ aberta }) {
 
   return (
     <aside className={`sidebar ${aberta ? 'aberta' : ''}`} aria-label="Menu lateral">
+      <img className="logo" src="/logo.svg" alt="Capacitações Internas" />
       <div className="usuario">
         <span className="avatar" aria-hidden="true">
           O
@@ -79,6 +80,7 @@ export default function Layout() {
         <button type="button" className="icone-botao" aria-label="Abrir menu" onClick={() => setAberta(true)}>
           <Menu size={22} />
         </button>
+        <img className="logo-topo" src="/logo-icone.svg" alt="" />
         <strong>Capacitações Internas</strong>
       </header>
       <Sidebar aberta={aberta} />

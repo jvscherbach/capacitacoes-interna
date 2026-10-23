@@ -41,6 +41,14 @@ Regra: implementar **uma sprint por vez**, na ordem. Não avançar se o gate fal
 **Parada:** ao concluir; não criar login/deploy. Não executar git de escrita.
 **Prompt:** `docs/prompts/S2.md`
 
+## S3 — Testes finais, homologação, revisão e entrega — `CONCLUÍDA`
+**Objetivo:** validar o MVP de ponta a ponta, corrigir falhas encontradas, revisar o diff e fechar README e registros. Sem funcionalidades novas e sem mudança de escopo.
+**Dependências:** S2 CONCLUÍDA.
+**Tarefas:** suíte completa (T01–T14) e `npm run build`; roteiro manual de homologação (11 itens) com APROVADO/FALHOU/NÃO TESTADO; revisão do diff; README completo; registros em `docs/EXECUCAO.md` e `docs/TESTES.md`.
+**Aceite:** checklist de homologação abaixo completo, cada item com evidência real.
+**Parada:** ao concluir; não criar login/Docker/Kubernetes/deploy. Não executar git de escrita.
+**Prompt:** (colado pelo usuário; não versionado em `docs/prompts/`)
+
 ## Checklist de homologação
 - [x] Sistema inicia localmente; API e interface respondem
 - [x] CRUD principal funciona com banco persistente
