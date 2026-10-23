@@ -78,10 +78,51 @@ GET  /api/cursos/99           -> {"detail":"Curso não encontrado"} [404]
 - Mensagem de commit sugerida: `feat(backend): API Express + SQLite com cursos, turmas, participantes, inscrições, dashboard e testes (S1)`
 
 ## Sprint 2 — Frontend, integração e README
-- Status: PENDENTE
-- Comandos e saídas: _a registrar_
-- Roteiro manual: _a registrar_
-- Mensagem de commit sugerida: _a registrar_
+- Status: CONCLUÍDA (2026-10-23)
+- Implementado (`frontend/`): Vite + React + react-router-dom, CSS puro (`src/styles/tokens.css`, `global.css`), `src/api.js` (API em `http://localhost:8000/api`, erros via `detail`), componentes base (Card, KpiCard, Chip, ProgressBar, PillButton, EmptyState, Modal, Confirmar), `Layout`/sidebar, formulários em modal e páginas Dashboard, Turmas, Detalhe da turma, Cursos e Participantes. `package.json` da raiz: `install:all` agora inclui o frontend. README completo.
+- Decisões (sem mudar escopo): a lista de cursos da sidebar atualiza via evento `dados-alterados`; situação da turma derivada no frontend (≥ 80 % = Quase lotada, lotada = vagas ocupadas ≥ vagas); exclusões pedem confirmação em modal (sem `window.confirm`); `.claude`/launch não criado.
+
+### Comandos e saídas reais
+| Comando | Resultado |
+|---|---|
+| `npm install --prefix frontend` | OK; `npm audit` reporta 2 vulnerabilidades moderadas (dependências de desenvolvimento), não corrigidas |
+| `npm run build` (raiz) | `✓ 1596 modules transformed.` `✓ built in 1.57s` (JS 201 kB, CSS 18 kB); repetido após os últimos ajustes de CSS: OK |
+| `npm test` (raiz) | `Test Files 6 passed (6)` · `Tests 29 passed (29)` |
+| Backend (`node backend/src/server.js`, `DB_PATH` temporário) e Vite (`vite`, porta 5173) | `GET /health` → `{"status":"ok"}`; `http://localhost:5173/` → 200 |
+
+### Roteiro manual de `docs/TESTES.md` (navegador embutido do app, banco temporário vazio)
+| # | Passo | Resultado |
+|---|---|---|
+| 1 | Iniciar backend e frontend | APROVADO (health 200; frontend 200; páginas carregam e falam com a API, CORS ok) |
+| 2 | Criar curso, turma (2 vagas) e 3 participantes | APROVADO — curso e turma pela interface; Ana pela interface, Bruno e Carla via `curl.exe` (por economia de passos). Enviar o curso vazio exibiu "Nome é obrigatório" (RN08) |
+| 3 | Inscrever 2; o 3º deve dar erro de vaga | APROVADO — a interface exibiu "Turma sem vagas disponíveis" e o chip "Lotada" com 100 % |
+| 4 | Marcar conclusão; dashboard 1 · 2 · 1 | APROVADO — dashboard exibiu Turmas 1, Participantes 2, Concluintes 1 |
+| 5 | Editar turma; excluir turma com inscrições (409) | APROVADO — vagas 2 → 3 pela interface (2 de 3, 67 %, "Vagas abertas"); exclusão exibiu "Não é possível excluir uma turma que possui inscrições" |
+| 6 | Cancelar inscrição; conferir dashboard | APROVADO — cancelamento de Bruno pela interface; dashboard conferido por `curl.exe`: `{"turmas":1,"participantes":1,"concluintes":1}` |
+| 7 | Reiniciar backend; dados persistem | APROVADO — após reiniciar o processo: mesmo dashboard e turma com `vagas_ocupadas: 1` |
+| 8 | Telas vazias e largura de celular | PARCIAL — dashboard vazio (cartões com botão de ação) APROVADO; Turmas/Cursos/Participantes vazios **NÃO TESTADO** visualmente; 375 px: dashboard e detalhe da turma APROVADOS (sem rolagem horizontal, tabela vira cartão); **NÃO TESTADO** visualmente o último ajuste de CSS dos campos nome/e-mail no celular nem o menu hambúrguer aberto |
+| 9 | Busca de segredos (`password`, `secret`, `token`, `api key`, `.env`) | APROVADO — só falsos positivos (`tokens.css`, `process.env.PORT/DB_PATH`, `.gitignore`); nenhum `.env`; nenhum `*.db` rastreável |
+
+### Checklist de homologação
+- [x] Sistema inicia localmente; API e interface respondem — APROVADO
+- [x] CRUD principal funciona com banco persistente — APROVADO (testes automatizados + criar/editar/excluir-bloqueado pela interface; excluir curso/participante e editar curso/participante só pelos testes automatizados, **NÃO TESTADO** na interface)
+- [x] Três indicadores mudam conforme os registros — APROVADO
+- [x] Testes executados e resultado registrado — APROVADO (29/29)
+- [x] README e `docs/EXECUCAO.md` atualizados — APROVADO
+- [x] Sem credenciais no repositório — APROVADO
+- [x] Critérios de aceite visual de `docs/DESIGN.md` — APROVADO por inspeção de capturas em ~1024 px e 375 px (sidebar, saudação, cartões arredondados, chips pastel, botão primário em gradiente, pílulas com contorno turquesa, barras de ocupação com %); sem marca/recursos da referência. Comparação feita à vista, sem teste automatizado de contraste/AA (**NÃO TESTADO**)
+
+### Onde João insere as capturas de tela
+Seção "Evidências (capturas de tela)" do `README.md`: Dashboard, lista de Turmas, Detalhe da turma com o erro de vaga, e uma captura em largura de celular.
+
+### Como reproduzir
+```powershell
+npm run install:all
+npm test
+npm run build
+npm run dev          # http://localhost:5173
+```
+- Mensagens de commit sugeridas: `feat(frontend): interface React/Vite com dashboard, turmas, cursos e participantes (S2)` e `docs: README completo e registro da homologação`
 
 ## Migração de stack (ADR-003, 2026-10-23)
 **Motivo:** o ambiente do usuário não executa o interpretador da stack anterior; nova stack 100% Node.js. Nenhum código de aplicação escrito; nenhum `npm install` executado.
@@ -98,7 +139,13 @@ GET  /api/cursos/99           -> {"detail":"Curso não encontrado"} [404]
 **Mensagem de commit sugerida:** `docs: migra stack para Node.js (Express + better-sqlite3 + Vitest) — ADR-003`
 
 ## Falha identificada e corrigida
-_a registrar_
+- Falha: durante o roteiro manual da S2 a interface exibiu "Sexta-Feira, 23 De Outubro" (CSS `text-transform: capitalize` capitalizando preposições), "1 turmas" no cartão de curso (sem plural) e nome/e-mail apertados lado a lado na tabela empilhada no celular.
+- Correção: capitalização só da primeira letra no JS, função `plural()` em `frontend/src/util.js` e CSS que quebra a linha do e-mail. Revalidado: build OK e dashboard em 375 px conferido à vista (o ajuste do e-mail no celular não foi revisto visualmente: NÃO TESTADO).
+- Também na S1: o primeiro comando que gravava os arquivos de teste falhou por erro de aspas no shell; os arquivos foram recriados e os testes passaram.
 
 ## Limitações conhecidas
-_a registrar_
+- Sem login, exportação, e-mail, lista de espera e paginação (limites do MVP).
+- Reduzir as vagas de uma turma abaixo do número de inscritos não é bloqueado (regra não prevista).
+- `npm audit` aponta vulnerabilidades em dependências de desenvolvimento (Vitest/Vite); não corrigidas.
+- Telas vazias de Turmas/Cursos/Participantes, menu hambúrguer aberto e contraste AA não foram verificados (NÃO TESTADO).
+- Concorrência real de requisições simultâneas não testada.

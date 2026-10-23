@@ -29,7 +29,7 @@ Regra: implementar **uma sprint por vez**, na ordem. Não avançar se o gate fal
 **Parada:** testes falhando = não avançar. Não criar frontend.
 **Prompt:** `docs/prompts/S1.md`
 
-## S2 — Frontend, integração, testes finais e README — `PENDENTE`
+## S2 — Frontend, integração, testes finais e README — `CONCLUÍDA`
 **Objetivo:** interface responsiva integrada à API, homologação do MVP e README completo.
 **Dependências:** S1 concluída com gate aprovado.
 **Arquivos prováveis:** `frontend/*`, `README.md`, `backend/tests/*` (ajustes), `docs/EXECUCAO.md`, `docs/TESTES.md`.
@@ -42,10 +42,10 @@ Regra: implementar **uma sprint por vez**, na ordem. Não avançar se o gate fal
 **Prompt:** `docs/prompts/S2.md`
 
 ## Checklist de homologação
-- [ ] Sistema inicia localmente; API e interface respondem
-- [ ] CRUD principal funciona com banco persistente
-- [ ] Três indicadores mudam conforme os registros
-- [ ] Testes executados e resultado registrado (aprovado/falhou/não testado)
-- [ ] README e `docs/EXECUCAO.md` atualizados
-- [ ] Sem credenciais no repositório
-- [ ] Critérios de aceite visual de `docs/DESIGN.md` atendidos
+- [x] Sistema inicia localmente; API e interface respondem
+- [x] CRUD principal funciona com banco persistente
+- [x] Três indicadores mudam conforme os registros
+- [x] Testes executados e resultado registrado (aprovado/falhou/não testado)
+- [x] README e `docs/EXECUCAO.md` atualizados
+- [x] Sem credenciais no repositório
+- [x] Critérios de aceite visual de `docs/DESIGN.md` atendidos
