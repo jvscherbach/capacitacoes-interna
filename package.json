@@ -4,7 +4,7 @@
   "private": true,
   "description": "MVP fictício de gestão de capacitações internas",
   "scripts": {
-    "install:all": "npm install && npm install --prefix backend",
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
     "dev:backend": "npm run dev --prefix backend",
     "dev:frontend": "npm run dev --prefix frontend",
     "dev": "concurrently -n api,web -c cyan,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
